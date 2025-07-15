@@ -38,6 +38,6 @@ app.include_router(vote.router)
 @app.get("/") # "/" the url pat
 # the name of fun does not matter 
 async def root():
-    return {"message": "Hello World"} # -> automatically convert dict into JSON
+    return {"message": "Hello World! I am gonna fuck Julia really hard"} # -> automatically convert dict into JSON
 
 
