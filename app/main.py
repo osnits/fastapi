@@ -1,7 +1,7 @@
 #conda create --name <env_name> --file requirements.txt
 #pip install -r requirements.txtcond
 
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from app.database import engine
 from . import models, config
 from .routers import post, user, auth, vote
@@ -35,9 +35,9 @@ app.include_router(vote.router)
 
 
 # the decorator turns a fun into path operation
-@app.get("/") # "/" the url pat
+@app.get("/") # status_code = status.HTTP_201_CREATED) # "/" the url pat
 # the name of fun does not matter 
-async def root():
-    return {"message": "Hello World! No fuck with old life"} # -> automatically convert dict into JSON
+def root():
+    return {"message": "Hello World! On 1 September 2025, a new life starts. I mean it"} # -> automatically convert dict into JSON
 
 

@@ -1,0 +1,47 @@
+#version of docker-compose
+version: "3"
+
+#service = container
+services:
+  api:
+  # . is current directory
+    build: . 
+    depends_on:
+      - postgres
+    ports:
+          #- <port on localhost>:<port on container>; eg 4000:8000
+          - 80:8000
+    #to bind mount: folder on local machine: folder in the container: security option -> if ro, then container cannot change these files on the local machine
+    #volumes:
+      #- ./:/usr/src/app:ro
+    #command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+    #env_file:
+    #   - ./.env
+    environment:
+      - DATABASE_HOSTNAME=${DATABASE_HOSTNAME}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALGORITHM=${ALGORITHM}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+  
+  # aps is built by us as custom image. For Postgres, on the contrary, we use pre-built
+  postgres: 
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+    volumes:
+        #name: path in the C to which P would write data 
+      - postgres-db:/var/lib/postgresql/data
+  
+  # now create volume section globally, so that multiple Cs can access them
+  
+volumes:
+  postgres-db: 
+
+
+    

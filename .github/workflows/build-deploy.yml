@@ -1,0 +1,22 @@
+name: Build and Deploy Code
+
+#what trigger this code to run: push/pull
+# can specify on which branch to run 
+#on: [push, pull_request] # allows to run on both
+on: [push, pull_request]
+
+#once we define the triggers above, we define jobs
+jobs:
+  job1: #specify on what OS it runs on
+    runs-on: ubuntu latest
+    #list of steps
+    steps:
+    #name: human readable description of step
+      - name: pulling git repo
+        #uses: actual command to run on our VM to pull git repo -> find on GH marketplace
+        uses: actions/checkout@v2 # special action that we get from GH marketplace
+      - name: say hi to Julia
+        uses: echo "Hello Julia, I am gonna fuck you hard"
+
+
+
