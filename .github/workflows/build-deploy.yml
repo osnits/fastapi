@@ -12,11 +12,22 @@ jobs:
     #list of steps
     steps:
     #name: human readable description of step
-      - name: pulling git repo
+      - name: pulling git repo # since we pull out our repo, we have access to all the repository code
         #uses: actual command to run on our VM to pull git repo -> find on GH marketplace
         uses: actions/checkout@v2 # special action that we get from GH marketplace
       - name: say hi to Julia
         run: echo "Hello Julia, I am gonna fuck you hard"
+      - name: Install python version 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      #we want to upgrade pip
+      - name: update pip
+        run: python -m pip install --upgrade pip
+      - name: install all dependencies 
+        run: pip install -r requirements.txt
+      
+      
 
 
 
