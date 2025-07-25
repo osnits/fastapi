@@ -10,7 +10,7 @@ env:
 
 #once we define the triggers above, we define jobs
 jobs:
-  job1: #specify on what OS it runs on
+  build: #specify on what OS it runs on
     environment:
       name: testing
     env:
@@ -38,7 +38,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-          
+
     runs-on: ubuntu-latest
     #list of steps
     steps:
@@ -61,7 +61,13 @@ jobs:
         run: | # | means that a list of commands follow
           pip install pytest
           pytest
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
 
+    steps:
+      - name: deploying stuff
+        run: echo "going to deploy some stuff"
       
       
 
